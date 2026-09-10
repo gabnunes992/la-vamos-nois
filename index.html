@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de jogos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .cabecalho {
+            background-color: yellow;
+            width: 100%;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .cabecalho img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        .conteudo {
+            background-color: purple;
+            width: 100%;
+            min-height: 430px;
+            padding: 25px 10px 40px;
+            color: white;
+        }
+        .titulo-conteudo {
+            font-size: 32px;
+            margin: 10px 0;
+        }
+        .negrito {
+            font-weight: bold;
+        }
+        .estilo-conteudo {
+            background-color: rgba(0, 0, 0, 0.25);
+            width: 350px;
+            max-width: 90%;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        .estilo-conteudo label {
+            font-weight: bold;
+        }
+        .estilo-conteudo input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: none;
+            border-radius: 6px;
+            outline: none;
+            font-size: 15px;
+        }
+        .senha-area {
+            position: relative;
+        }
+        .senha-area input {
+            padding-right: 45px;
+        }
+        .mostrar-senha {
+            position: absolute;
+            right: 5px;
+            top: 6px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .forca {
+            width: 100%;
+            height: 7px;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .barra-forca {
+            height: 100%;
+            width: 0%;
+            transition: 0.3s;
+        }
+        #textoForca {
+            display: block;
+            font-size: 13px;
+            margin-top: 5px;
+            text-align: left;
+        }
+        .botoes {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .enviar,
+        .gerar {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .enviar {
+            background-color: yellow;
+            color: black;
+        }
+        .gerar {
+            background-color: #222;
+            color: white;
+        }
+        .enviar:hover,
+        .gerar:hover {
+            transform: scale(1.05);
+        }
+        .mensagem {
+            min-height: 22px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .acesso-loja {
+            display: none;
+            margin-top: 15px;
+        }
+        .acesso-loja button {
+            background-color: #00ff88;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .acesso-loja button:hover {
+            transform: scale(1.05);
+        }
+        .rodape {
+            background-color: black;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+        }
+        .rodape a {
+            color: yellow;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .rodape a:hover {
+            text-decoration: underline;
+        }
+        .media {
+            text-align: center;
+            padding: 20px;
+        }
+        .media video {
+            max-width: 90%;
+            border-radius: 10px;
+        }
+        .media h2 {
+            margin-top: 25px;
+        }
+        @media (max-width: 500px) {
+            .titulo-conteudo {
+                font-size: 27px;
+            }
+            .estilo-conteudo {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- CABEÇALHO -->
+<div class="cabecalho">
+    <img
+        src="https://th.bing.com/th/id/OIP.rKkE5f3WOT_SvjcYngG35gHaHa?w=203&h=203&c=7&r=0&o=7&pid=1.7&rm=3"
+        alt="Logo da loja de jogos">
+</div>
+<div class="conteudo">
+    <center>
+        <h2 class="titulo-conteudo">
+            🎮 JOGOS
+        </h2>
+        <p class="negrito">
+            Aqui ficam as informações principais
+        </p>
+        <br>
+        <div class="estilo-conteudo">
+            <label for="login">
+                Login:
+            </label>
+            <br>
+            <input
+                id="login"
+                type="text"
+                placeholder="Digite seu login">
+            <br><br>
+            <label for="senha">
+                Senha:
+            </label>
+            <br>
+            <div class="senha-area">
+                <input
+                    id="senha"
+                    type="password"
+                    placeholder="Digite sua senha"
+                    oninput="verificarForca()">
+                <button
+                    type="button"
+                    class="mostrar-senha"
+                    onclick="mostrarSenha()"
+                    id="botaoMostrar">
+                </button>
+            </div>
+            <div
+                id="mensagem"
+                class="mensagem">
+            </div>
+            <div
+                id="acessoLoja"
+                class="acesso-loja">
+                <p>
+                </p>
+                <button onclick="abrirLoja()">
+                    🎮 Entrar na loja
+                </button>
+            </div>
+        </div>
+    </center>
+</div>
+<!-- RODAPÉ -->
+<div class="rodape" style="background-color: black;
+width:100%; text-align:center; padding:10px">
+  <a href="/estoque.html" target="_blank">
+    ENTRAR
+</a>
+ 
+</div>
+
+<script>
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const style = document.createElement("style");
+        style.textContent = `
+            .game {
+                transform-style: preserve-3d;
+                perspective: 1000px;
+                transition: transform .15s ease;
+            }
+            .game-img {
+                transform: translateZ(20px);
+            }
+            .game-info {
+                transform: translateZ(30px);
+            }
+            .hero {
+                transform-style: preserve-3d;
+            }
+            .hero h1,
+            .hero p,
+            .hero .btn {
+                transition: transform .15s ease;
+            }
+        `;
+        document.head.appendChild(style);
+        function ativar3D() {
+            document.querySelectorAll(".game").forEach(card => {
+                if (card.dataset.efeito3d) return;
+                card.dataset.efeito3d = "sim";
+                card.addEventListener("mousemove", function (e) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centroX = rect.width / 2;
+                    const centroY = rect.height / 2;
+                    const rotateY =
+                        ((x - centroX) / centroX) * 10;
+                    const rotateX =
+                        ((centroY - y) / centroY) * 10;
+                    card.style.transform = `
+                        perspective(1000px)
+                        rotateX(${rotateX}deg)
+                        rotateY(${rotateY}deg)
+                        translateY(-7px)
+                        scale(1.03)
+                    `;
+                });
+                card.addEventListener("mouseleave", function () {
+                    card.style.transform = `
+                        perspective(1000px)
+                        rotateX(0deg)
+                        rotateY(0deg)
+                        translateY(0)
+                        scale(1)
+                    `;
+                });
+            });
+        }
+        const games =
+            document.getElementById("games");
+        if (games) {
+            const observer = new MutationObserver(function () {
+                ativar3D();
+            });
+            observer.observe(games, {
+                childList: true
+            });
+        }
+        const hero =
+            document.querySelector(".hero");
+        if (hero) {
+            const titulo =
+                hero.querySelector("h1");
+            const texto =
+                hero.querySelector("p");
+            const botao =
+                hero.querySelector(".btn");
+            hero.addEventListener("mousemove", function (e) {
+                const rect =
+                    hero.getBoundingClientRect();
+                const x =
+                    (e.clientX - rect.left) / rect.width - 0.5;
+                const y =
+                    (e.clientY - rect.top) / rect.height - 0.5;
+                if (titulo) {
+                    titulo.style.transform =
+                        `translate3d(${x * 15}px, ${y * 10}px, 30px)`;
+                }
+                if (texto) {
+                    texto.style.transform =
+                        `translate3d(${x * 8}px, ${y * 6}px, 20px)`;
+                }
+                if (botao) {
+                    botao.style.transform =
+                        `translate3d(${x * 5}px, ${y * 4}px, 15px)`;
+                }
+            });
+            hero.addEventListener("mouseleave", function () {
+                if (titulo)
+                    titulo.style.transform =
+                        "translate3d(0,0,30px)";
+                if (texto)
+                    texto.style.transform =
+                        "translate3d(0,0,20px)";
+                if (botao)
+                    botao.style.transform =
+                        "translate3d(0,0,15px)";
+            });
+        }
+    });
+    </script>
+</body>
+</html>
